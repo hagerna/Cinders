@@ -5,14 +5,18 @@ using UnityEngine;
 public class FlameHand : MonoBehaviour
 {
     OVRInput.Controller Hand = OVRInput.Controller.LHand;
-    bool isFireHeld = false;
-    GameObject heldFire;
+    GameObject HeldFire;
     [SerializeField] GameObject FireBolt;
-    [SerializeField] float throwSpeed, FireboltDamage;
+    float ThrowSpeed, FireboltDamage, PullSpeed;
 
     public void SetThrowSpeed(float speed)
     {
-        throwSpeed = speed;
+        ThrowSpeed = speed;
+    }
+
+    public void SetPullSpeed(float speed)
+    {
+        PullSpeed = speed;
     }
 
     public void SetFireboltDamage(float dmg)
@@ -24,13 +28,12 @@ public class FlameHand : MonoBehaviour
     void Update()
     {
         OVRInput.Update();
-        if (!isFireHeld && OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+        if (HeldFire == null && OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
         {
-            isFireHeld = true;
-            heldFire = Instantiate(FireBolt, Vector3.up * 0.5f, Quaternion.identity);
-            heldFire.GetComponent<Firebolt>().SetTarget(gameObject);
+            HeldFire = Instantiate(FireBolt, Vector3.up * 0.5f, Quaternion.identity);
+            HeldFire.GetComponent<Firebolt>().SetTarget(gameObject, PullSpeed);
         }
-        if (isFireHeld && !OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+        if (HeldFire != null && !OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
         {
             ThrowFire();
         }     
@@ -38,12 +41,11 @@ public class FlameHand : MonoBehaviour
 
     void ThrowFire()
     {
-        Vector3 velocity = OVRInput.GetLocalControllerVelocity(Hand) * throwSpeed;
-        if (heldFire)
+        Vector3 velocity = OVRInput.GetLocalControllerVelocity(Hand) * ThrowSpeed;
+        if (HeldFire)
         {
-            heldFire.GetComponent<Firebolt>().Throw(velocity, FireboltDamage);
+            HeldFire.GetComponent<Firebolt>().Throw(velocity, FireboltDamage);
         }
-        isFireHeld = false;
-        heldFire = null;
+        HeldFire = null;
     }
 }

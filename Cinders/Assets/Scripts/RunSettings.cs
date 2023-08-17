@@ -7,7 +7,7 @@ public class RunSettings
     public int Night;
     public float FireboltLvl, TorchLvl;
     public int TorchMaxHits;
-    public float FireboltThrowSpeed;
+    public float FireboltThrowSpeed, FireboltPullSpeed;
 
     public RunSettings()
     {
@@ -16,5 +16,6 @@ public class RunSettings
         TorchLvl = 1;
         TorchMaxHits = 3;
         FireboltThrowSpeed = 4;
+        FireboltPullSpeed = 2;
     }
 }

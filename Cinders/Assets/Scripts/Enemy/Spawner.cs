@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnRandomEnemies(2, 4f);
+        SpawnRandomEnemies(2, 8f);
     }
 
     private void Spawn(GameObject EnemyType)

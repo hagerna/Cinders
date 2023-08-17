@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3795967435612786715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 6, z: 25}
-  m_LocalScale: {x: 50, y: 10, z: 10}
+  m_LocalScale: {x: 50, y: 5, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemies:
-  - {fileID: 4392913121049325209, guid: 34c668041aca84735a360173997676fb, type: 3}
-  - {fileID: 4392913121049325209, guid: 68b610015008146a1bb1025abdd5c768, type: 3}
+  - {fileID: 4559600893603488289, guid: fb9edc5704fff450193085244f3f669b, type: 3}
+  - {fileID: 3840319857043631916, guid: 87191eeb3ee0841168833dd95222a6a8, type: 3}
+  - {fileID: 4559600893603488289, guid: a0b5ea862cec043a9b4f14ada9533378, type: 3}
 --- !u!65 &5311491621098399353
 BoxCollider:
   m_ObjectHideFlags: 0

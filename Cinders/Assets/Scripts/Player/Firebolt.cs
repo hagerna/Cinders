@@ -6,28 +6,31 @@ public class Firebolt : MonoBehaviour
 {
     private GameObject target;
     private Vector3 start;
-    private float duration, speed, damage;
-    private bool thrown = false;
+
+    [SerializeField] private float Duration;
+    private float Damage, Speed;
+    private bool Thrown = false;
     [SerializeField] AnimationCurve Curve;
     //public ParticleSystem.MinMaxCurve Curve = new ParticleSystem.MinMaxCurve(1, new AnimationCurve(), new AnimationCurve());
 
-    public void SetTarget(GameObject Target)
-    { 
+    public void SetTarget(GameObject Target, float pullSpeed)
+    {
         start = transform.position;
         target = Target;
+        Speed = pullSpeed;
         StartCoroutine(Pull());
     }
 
     IEnumerator Pull()
     {
         float time = 0;
-        while (!thrown && time <= duration)
+        while (!Thrown && time <= Duration)
         {
-            transform.position = Vector3.Lerp(start, target.transform.position, Curve.Evaluate(time/duration));
-            time += Time.deltaTime * speed;
+            transform.position = Vector3.Lerp(start, target.transform.position, Curve.Evaluate(time/Duration));
+            time += Time.deltaTime * Speed;
             yield return new WaitForEndOfFrame();
         }
-        if (!thrown)
+        if (!Thrown)
         {
             transform.SetParent(target.transform);
         }
@@ -35,12 +38,12 @@ public class Firebolt : MonoBehaviour
 
     public void Throw(Vector3 throwVelocity, float hitDamage)
     {
-        thrown = true;
+        Thrown = true;
         Rigidbody rb = GetComponent<Rigidbody>();
         transform.SetParent(null);
         rb.useGravity = true;
         rb.velocity = throwVelocity;
-        damage = hitDamage;
+        Damage = hitDamage;
 
     }
 
@@ -49,7 +52,7 @@ public class Firebolt : MonoBehaviour
         Enemy enemy = target.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.Hurt(damage);
+            enemy.Hurt(Damage);
         }
         Destroy(gameObject);
     }

@@ -32,12 +32,13 @@ public class GameManager : MonoBehaviour
         }
         if (ActiveFlameHand != null)
         {
-            ActiveTorch.SetMaxHits(Current.TorchMaxHits);
-            ActiveTorch.SetTorchDamage(FireboltDamageCurve.Evaluate(Current.FireboltLvl));
+            ActiveFlameHand.SetThrowSpeed(Current.FireboltThrowSpeed);
+            ActiveFlameHand.SetPullSpeed(Current.FireboltPullSpeed);
+            ActiveFlameHand.SetFireboltDamage(FireboltDamageCurve.Evaluate(Current.FireboltLvl));
         }
     }
 
-    public float GetEnemyHealth(bool isElite)
+    public float GetEnemyHealth(string EnemyType, bool isElite)
     {
         float value = EnemyHealthCurve.Evaluate(Current.Night);
         if (isElite)

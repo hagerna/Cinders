@@ -1,0 +1,44 @@
+Cinders Brainstorm
+
+Enemy Types:
+- Heavy (slower but more health)
+- Quick (faster but weaker)
+- Ranged (throws a slow moving object toward the fire)
+	- spell attack possibly extinguishes torch?
+- Booster (provide some AoE speed boost or shield)
+	- possibly two separate enemy types
+- Final boss of some sort?
+
+Upgrade system: infrequent Major upgrades that are run defining
+- Get Major Upgrades at Nights 5 & 15 & 25 or something?
+- Get Ash from completing Nights and killing ghosts
+	- spend Ash on permanent upgrades
+
+Hearth Upgrades: (effects can stack)
+- Icefire --> temporarily freeze enemies or chills on hit
+- Ghostflame --> applies DoT effect on hit
+- Whiteblaze --> more damage to enemies with no effects
+- Heatspark --> chains to nearby enemies
+
+Firebolt Upgrades:
+- Splitter --> Throw three weaker ones instead of one
+- Napalm -->  leaves a patch of burning fire on the ground
+- Fireball --> moves slower but gets larger as it travels
+- Focused Flame --> the longer you hold it the more powerful it gets
+
+Torch Upgrades:
+- Boomerang --> you can now also throw your torch
+- Eternal --> no longer can be put out
+- Heatwave --> periodically lets off bursts, applying effects
+- Explosive --> torch has a 50% chance to explode on hits
+
+Basic Upgrades
+- Damage +
+- pull speed -
+- throw speed +
+- torch hits +
+- 10% chance for effect
+- Campfire life
+- Improvements for major upgrades
+- Improvements for effects
+
