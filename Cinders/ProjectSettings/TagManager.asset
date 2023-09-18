@@ -8,6 +8,8 @@ TagManager:
   - SamplesInfoPanel
   - Campfire
   - Enemy
+  - Projectile
+  - Scenery
   layers:
   - Default
   - TransparentFX

@@ -1,9 +1,9 @@
 Cinders Brainstorm
 
 Enemy Types:
-- Heavy (slower but more health)
+- Heavy (slower but more health) [DONE]
 - Quick (faster but weaker)
-- Ranged (throws a slow moving object toward the fire)
+- Ranged (throws a slow moving object toward the fire) [Logic: DONE, Model Needed]
 	- spell attack possibly extinguishes torch?
 - Booster (provide some AoE speed boost or shield)
 	- possibly two separate enemy types

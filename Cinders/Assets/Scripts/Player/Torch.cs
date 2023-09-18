@@ -24,22 +24,7 @@ public class Torch : MonoBehaviour
     {
         TorchDamage = dmg;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Campfire"))
-        {
-            Relight();
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Enemy"))
-        {
-            HitEnemy(collision.gameObject);
-        }
-    }
+    
 
     private void Relight()
     {
@@ -61,12 +46,42 @@ public class Torch : MonoBehaviour
         HandleHitCount();
     }
 
+    private void HitProjectile(GameObject target)
+    {
+        GhostBlast blast = target.GetComponent<GhostBlast>();
+        if (blast != null)
+        {
+            blast.HitByPlayer(TorchDamage);
+        }
+        TorchHits = 0;
+    }
+
     private void HandleHitCount()
     { 
         TorchHits--;
         if (TorchHits <= 0)
         {
             Flame.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Campfire"))
+        {
+            Relight();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (TorchHits > 0 && collision.collider.CompareTag("Enemy"))
+        {
+            HitEnemy(collision.gameObject);
+        }
+        else if (TorchHits > 0 && collision.collider.CompareTag("Projectile"))
+        {
+            HitProjectile(collision.gameObject);
         }
     }
 }

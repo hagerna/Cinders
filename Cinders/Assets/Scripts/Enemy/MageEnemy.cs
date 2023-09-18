@@ -10,6 +10,11 @@ public class MageEnemy : Enemy
     GameObject CurrentProjectile;
     [SerializeField] Transform ProjectileStart;
 
+    override protected void EnemyDeath()
+    {
+        Destroy(CurrentProjectile);
+        base.EnemyDeath();
+    }
 
     protected new void FixedUpdate()
     {

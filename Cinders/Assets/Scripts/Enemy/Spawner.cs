@@ -11,15 +11,17 @@ public class Spawner : MonoBehaviour
         SpawnRandomEnemies(2, 8f);
     }
 
-    private void Spawn(GameObject EnemyType)
+    private void Spawn(GameObject EnemyPrefab)
     {
-        float x = Random.Range(transform.position.x - transform.localScale.x / 2, transform.position.x + transform.localScale.x / 2);
-        float y = Random.Range(transform.position.y - transform.localScale.y / 2, transform.position.y + transform.localScale.y / 2);
-        float z = Random.Range(transform.position.z - transform.localScale.z / 2, transform.position.z + transform.localScale.z / 2);
-        Vector3 position = new Vector3(x, y, z);
-        Instantiate(EnemyType, position, Quaternion.identity);
+        Bounds bounds = GetComponent<Collider>().bounds;
+        Vector3 position = new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y),
+            Random.Range(bounds.min.z, bounds.max.z)
+        );
+        transform.TransformPoint(position);
+        Instantiate(EnemyPrefab, position, Quaternion.identity);
     }
-
 
 
     public void SpawnEnemies(string enemyType, int enemyNumber = 1, float spawnDelay = 0)

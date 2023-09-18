@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Firebolt : MonoBehaviour
 {
-    private GameObject target;
-    private Vector3 start;
+    protected GameObject target;
+    protected Vector3 start;
 
-    [SerializeField] private float Duration;
-    private float Damage, Speed;
-    private bool Thrown = false;
+    protected float Duration = 2;
+    protected float Damage, Speed;
+    protected bool Thrown = false;
     [SerializeField] AnimationCurve Curve;
     //public ParticleSystem.MinMaxCurve Curve = new ParticleSystem.MinMaxCurve(1, new AnimationCurve(), new AnimationCurve());
 
@@ -36,7 +36,7 @@ public class Firebolt : MonoBehaviour
         }
     }
 
-    public void Throw(Vector3 throwVelocity, float hitDamage)
+    virtual public void Throw(Vector3 throwVelocity, float hitDamage)
     {
         Thrown = true;
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -47,7 +47,7 @@ public class Firebolt : MonoBehaviour
 
     }
 
-    private void HitEnemy(GameObject target)
+    virtual protected void HitEnemy(GameObject target)
     {
         Enemy enemy = target.GetComponent<Enemy>();
         if (enemy != null)
@@ -57,7 +57,17 @@ public class Firebolt : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void HitObject()
+    virtual protected void HitProjectile(GameObject target)
+    {
+        GhostBlast blast = target.GetComponent<GhostBlast>();
+        if (blast != null)
+        {
+            blast.HitByPlayer(Damage);
+        }
+        Destroy(gameObject);
+    }
+
+    virtual protected void HitObject()
     {
         Destroy(gameObject);
     }
@@ -67,6 +77,10 @@ public class Firebolt : MonoBehaviour
         if (collision.collider.CompareTag("Enemy"))
         {
             HitEnemy(collision.gameObject);
+        }
+        if (collision.collider.CompareTag("Projectile"))
+        {
+            HitProjectile(collision.gameObject);
         }
         if (collision.collider.CompareTag("Campfire"))
         {

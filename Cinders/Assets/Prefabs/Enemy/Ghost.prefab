@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 5712220759306493950}
   m_Layer: 0
   m_Name: Ghost
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -312,9 +312,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6ff8ff1fb924e0ea89d73a99956510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 0
-  MoveSpeed: 2.5
+  MoveSpeed: 2
+  Type: Basic
   IsElite: 0
+  DeathEffect: {fileID: 7272325495663383202, guid: 6b9c42b063b954afdb8f7840c7adb2a9, type: 3}
 --- !u!54 &5712220759306493950
 Rigidbody:
   m_ObjectHideFlags: 0

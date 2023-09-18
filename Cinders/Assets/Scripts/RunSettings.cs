@@ -8,6 +8,7 @@ public class RunSettings
     public float FireboltLvl, TorchLvl;
     public int TorchMaxHits;
     public float FireboltThrowSpeed, FireboltPullSpeed;
+    public int CampfireMaxHealth;
 
     public RunSettings()
     {
@@ -17,5 +18,6 @@ public class RunSettings
         TorchMaxHits = 3;
         FireboltThrowSpeed = 4;
         FireboltPullSpeed = 2;
+        CampfireMaxHealth = 5;
     }
 }

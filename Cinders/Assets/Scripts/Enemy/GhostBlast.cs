@@ -6,17 +6,17 @@ public class GhostBlast : MonoBehaviour
 {
     [SerializeField] AnimationCurve SizeCurve;
     private bool launch = false;
-    private float projectileSpeed;
+    private bool turned = false;
+    private float projectileSpeed, damageTransferred;
+    [SerializeField] Material TurnedColor;
+    [SerializeField] GameObject EnemyTrail, PlayerTrail, BurstEffect;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void Fire(float speed = 2)
     {
         projectileSpeed = speed;
         launch = true;
+        StartCoroutine(AutoDestroy());
     }
 
     public void Charge(float chargeTime)
@@ -37,11 +37,6 @@ public class GhostBlast : MonoBehaviour
 
     }
 
-    public void Hurt(int damage)
-    {
-        Destroy(gameObject);
-    }
-
     protected void FixedUpdate()
     {
         if (launch)
@@ -51,12 +46,44 @@ public class GhostBlast : MonoBehaviour
         }
     }
 
+    public void HitByPlayer(float damage)
+    {
+        turned = true;
+        gameObject.GetComponent<Renderer>().material = TurnedColor;
+        EnemyTrail.SetActive(false);
+        PlayerTrail.SetActive(true);
+        damageTransferred = damage;
+    }
+
+    IEnumerator AutoDestroy()
+    {
+        yield return new WaitForSeconds(12f);
+        Destroy(gameObject);
+        Debug.Log("Destroyed");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Campfire"))
         {
-            // Damage Campfire
+            Campfire fire = other.GetComponent<Campfire>();
+            if (fire != null)
+            {
+                fire.FireReached();
+            }
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Scenery"))
+        {
+            Destroy(gameObject);
+        }
+        if (turned && collision.collider.CompareTag("Enemy"))
+        {
+            collision.collider.GetComponent<Enemy>().Hurt(damageTransferred);
         }
     }
 }

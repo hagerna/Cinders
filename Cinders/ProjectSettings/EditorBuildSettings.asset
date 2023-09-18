@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Arena.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Scenes/Test.unity
     guid: ce8ec9ae6e4bf4619bb0b0f66b8b97fa
+  - enabled: 1
+    path: Assets/Scenes/Maps/Cliff Face.unity
+    guid: b117b946896d145adad6dff44ca29d9b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: efa50c7e302a249dcaa451cef89160c2, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e087834423c3647839d522d9a5ca937a, type: 2}

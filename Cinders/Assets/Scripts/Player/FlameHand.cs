@@ -36,7 +36,12 @@ public class FlameHand : MonoBehaviour
         if (HeldFire != null && !OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
         {
             ThrowFire();
-        }     
+        }
+        if (HeldFire == null && Input.GetKey(KeyCode.Space))
+        {
+            HeldFire = Instantiate(FireBolt, Vector3.up * 0.5f, Quaternion.identity);
+            HeldFire.GetComponent<Firebolt>().SetTarget(gameObject, PullSpeed);
+        }
     }
 
     void ThrowFire()

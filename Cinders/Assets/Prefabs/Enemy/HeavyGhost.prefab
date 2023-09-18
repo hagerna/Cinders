@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: -4490195838942463542}
   m_Layer: 0
   m_Name: HeavyGhost
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,8 +246,8 @@ CapsuleCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 1.8
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.2, z: 0.65}
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.65, z: 0.2}
 --- !u!114 &-4492315095287065859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,8 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6ff8ff1fb924e0ea89d73a99956510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 1
   Type: Heavy
   IsElite: 0
+  DeathEffect: {fileID: 7272325495663383202, guid: 6b9c42b063b954afdb8f7840c7adb2a9, type: 3}
 --- !u!54 &-4490195838942463542
 Rigidbody:
   m_ObjectHideFlags: 0

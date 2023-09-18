@@ -5,19 +5,20 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    protected float Health, MoveSpeed;
+    protected float Health;
+    [SerializeField] protected float MoveSpeed = 2f;
     protected bool CanMove;
     [SerializeField] protected string Type = "Basic";
     [SerializeField] protected bool IsElite;
+    [SerializeField] protected GameObject DeathEffect;
 
     protected void Start()
     {
+        Instantiate(DeathEffect, Vector3.up, Quaternion.identity);
         GameManager gm = FindObjectOfType<GameManager>();
-        if (gm == null)
+        if (gm != null)
         {
             Health = gm.GetEnemyHealth(Type, IsElite);
-            //MoveSpeed = gm.GetEnemySpeed(Type, IsElite);
-            MoveSpeed = 2;
         }
         CanMove = true;
     }
@@ -48,12 +49,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected void EnemyDeath()
+    virtual protected void EnemyDeath()
     {
+        Instantiate(DeathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
-    protected void EnemyInjured()
+    virtual protected void EnemyInjured()
     {
         StartCoroutine(Knockback());
     }
@@ -70,6 +72,7 @@ public class Enemy : MonoBehaviour
 
     protected void ReachedCampfire()
     {
+        Instantiate(DeathEffect, transform);
         EnemyDeath();
     }
 
@@ -77,6 +80,11 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Campfire"))
         {
+            Campfire fire = other.GetComponent<Campfire>();
+            if (fire != null)
+            {
+                fire.FireReached();
+            }
             ReachedCampfire();
         }
     }
