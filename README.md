@@ -1,7 +1,14 @@
 # Cinders
-A VR Game built for the Meta Quest 2 in Unity based on a previous project that was originally built for Vicon.
+A VR Game built for the Meta Quest 2 in Unity based on a previous project that was originally built for the Vicon Motion Tracking System. 
 
 # DevLog
+
+#### 8/17/23
+Added New Enemy Types and models as subclasses of base Enemy:
+- Heavy is larger, can take more hits, and moves slower
+- Mage stops at a certain distance and will shoot slow moving projectiles at target until destroyed
+Added Game Manager that will track stats to be upgraded throughout a run
+- Torch & Firebolt damage and other variables are now retrieved from GameManager script
 
 #### 8/15/23
 Fixed GitHub version to exclude unneeded/ overly large files (Library, Assets/Oculus, etc.).
