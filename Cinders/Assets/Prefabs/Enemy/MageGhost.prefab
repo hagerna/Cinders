@@ -290,14 +290,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a6eabeaf71548e48ed6342ebeef9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 1.5
-  Type: Mage
-  IsElite: 0
-  DeathEffect: {fileID: 7272325495663383202, guid: 6b9c42b063b954afdb8f7840c7adb2a9, type: 3}
-  AttackDistance: 15
-  AttackSpeed: 10
-  Projectile: {fileID: 4610629896456493458, guid: a736e9159513948a18e22c5bd95065d0, type: 3}
-  ProjectileStart: {fileID: 3473261453614158025}
+  moveSpeed: 1
+  type: Basic
+  isElite: 0
+  deathEffect: {fileID: 7272325495663383202, guid: 6b9c42b063b954afdb8f7840c7adb2a9, type: 3}
+  attackDistance: 0
+  attackSpeed: 0
+  projectile: {fileID: 0}
+  projectileStart: {fileID: 0}
 --- !u!136 &5837706896498460378
 CapsuleCollider:
   m_ObjectHideFlags: 0

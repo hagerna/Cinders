@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595f2f3a2d05a44cf9a3f8a838ac0886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireBolt: {fileID: 6054629636317347695, guid: bdaf4bf0fdcb64d7fa6b5ba815bd0909, type: 3}
+  fireBolt: {fileID: 5243567476893645060, guid: bdaf4bf0fdcb64d7fa6b5ba815bd0909, type: 3}
+  useable: 0

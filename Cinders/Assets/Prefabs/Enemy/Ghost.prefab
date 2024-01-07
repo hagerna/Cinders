@@ -312,10 +312,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6ff8ff1fb924e0ea89d73a99956510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 2
-  Type: Basic
-  IsElite: 0
-  DeathEffect: {fileID: 7272325495663383202, guid: 6b9c42b063b954afdb8f7840c7adb2a9, type: 3}
+  moveSpeed: 1.2
+  type: Basic
+  isElite: 0
+  deathEffect: {fileID: 7272325495663383202, guid: 6b9c42b063b954afdb8f7840c7adb2a9, type: 3}
 --- !u!54 &5712220759306493950
 Rigidbody:
   m_ObjectHideFlags: 0

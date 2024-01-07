@@ -8,6 +8,7 @@ Enemy Types:
 - Booster (provide some AoE speed boost or shield)
 	- possibly two separate enemy types
 - Final boss of some sort?
+	-Larger versions of the basic types? 
 
 Upgrade system: infrequent Major upgrades that are run defining
 - Get Major Upgrades at Nights 5 & 15 & 25 or something?

@@ -11,9 +11,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Test.unity
     guid: ce8ec9ae6e4bf4619bb0b0f66b8b97fa
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Maps/Cliff Face.unity
     guid: b117b946896d145adad6dff44ca29d9b
+  - enabled: 0
+    path: Assets/Scenes/TestArena.unity
+    guid: 5de6d8c49ad38438d93b6170086e6a7e
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 510137f95c50d40709491a8581c56da4
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: efa50c7e302a249dcaa451cef89160c2, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e087834423c3647839d522d9a5ca937a, type: 2}

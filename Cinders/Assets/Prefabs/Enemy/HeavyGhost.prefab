@@ -218,7 +218,7 @@ Transform:
   m_GameObject: {fileID: 3840319857043631916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1584402159889838119}
@@ -260,10 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6ff8ff1fb924e0ea89d73a99956510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 1
-  Type: Heavy
-  IsElite: 0
-  DeathEffect: {fileID: 7272325495663383202, guid: 6b9c42b063b954afdb8f7840c7adb2a9, type: 3}
+  moveSpeed: 0.75
+  type: Basic
+  isElite: 0
+  deathEffect: {fileID: 7272325495663383202, guid: 6b9c42b063b954afdb8f7840c7adb2a9, type: 3}
 --- !u!54 &-4490195838942463542
 Rigidbody:
   m_ObjectHideFlags: 0

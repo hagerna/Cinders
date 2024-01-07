@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 93649158523364308}
   - component: {fileID: 768305277691727256}
   - component: {fileID: 986591897053122589}
+  - component: {fileID: 6161608781517385022}
+  - component: {fileID: 1640932724122411942}
   m_Layer: 0
   m_Name: Torch
-  m_TagString: Untagged
+  m_TagString: Torch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +99,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f9a990e6204d4e10acda8f8aa19d1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Flame: {fileID: 8001004620969897937}
+  flame: {fileID: 8001004620969897937}
+  useable: 0
+--- !u!135 &6161608781517385022
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7808227274008477515}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.075
+  m_Center: {x: -0.000015584821, y: -0.0041, z: 0.146}
+--- !u!54 &1640932724122411942
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7808227274008477515}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8001004620969897937
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,9 +160,8 @@ GameObject:
   - component: {fileID: 1054558409133557101}
   - component: {fileID: 1069759341647703961}
   - component: {fileID: 608854915385233375}
-  - component: {fileID: 2141464294390143911}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,24 +232,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2141464294390143911
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8001004620969897937}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}

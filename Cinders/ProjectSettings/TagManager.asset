@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Projectile
   - Scenery
+  - Torch
   layers:
   - Default
   - TransparentFX
