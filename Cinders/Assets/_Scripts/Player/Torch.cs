@@ -5,37 +5,77 @@ using UnityEngine;
 public class Torch : MonoBehaviour
 {
     [SerializeField] GameObject flame;
-    private int torchHits, maxHits;
-    private float torchDamage;
+    private int hitsLeft;
     public bool useable;
+    TorchSO torch;
+    List<Upgrade> torchUpgrades;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        torchHits = 0;
+        GameManager.instance.newRun += (RunSettings obj) => LoadTorch(obj.torchBase);
+        PutOut();
+    }
+
+    public void LoadTorch(TorchSO scriptableObj)
+    {
+        torch = Instantiate(scriptableObj);
+        PutOut();
+        torchUpgrades = new List<Upgrade>();
+    }
+
+    public void AddUpgrade(Upgrade upgrade)
+    {
+        if (upgrade is InstantUpgrade)
+        {
+            InstantUpgrade instant = upgrade as InstantUpgrade;
+            instant.ApplyUpgrade(torch);
+        }
+        else if (upgrade is ActiveUpgrade)
+        {
+            
+        }
+        torchUpgrades.Add(upgrade);
+    }
+
+    private void PutOut()
+    {
+        hitsLeft = 0;
         flame.SetActive(false);
     }
-    
 
     private void Relight()
     {
         if (useable)
         {
             flame.SetActive(true);
-            torchHits = maxHits;
+            hitsLeft = torch.maxHits;
+            foreach (ActiveUpgrade upgrade in torch.OnLight)
+            {
+                if (upgrade.CheckCondition(data: null))
+                {
+                    upgrade.ActivateEffect();
+                }
+            }  
         }
     }
 
     private void HitEnemy(GameObject target)
     {
-        if (torchHits <= 0)
+        if (hitsLeft <= 0)
         {
             return;
         }
         Enemy enemy = target.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.Hurt(torchDamage);
+            enemy.Hurt(torch.damage);
+            foreach (ActiveUpgrade upgrade in torch.OnHit)
+            {
+                if (upgrade.CheckCondition(data: true))
+                {
+                    upgrade.ActivateEffect();
+                }
+            }
         }
         HandleHitCount();
     }
@@ -45,15 +85,22 @@ public class Torch : MonoBehaviour
         GhostBlast blast = target.GetComponent<GhostBlast>();
         if (blast != null)
         {
-            blast.HitByPlayer(torchDamage);
+            blast.HitByPlayer(torch.damage);
+            foreach (ActiveUpgrade upgrade in torch.OnHit)
+            {
+                if (upgrade.CheckCondition(data: true))
+                {
+                    upgrade.ActivateEffect();
+                }
+            }
         }
-        torchHits = 0;
+        hitsLeft = 0;
     }
 
     private void HandleHitCount()
     { 
-        torchHits--;
-        if (torchHits <= 0)
+        hitsLeft--;
+        if (hitsLeft <= 0)
         {
             flame.SetActive(false);
         }
@@ -67,9 +114,17 @@ public class Torch : MonoBehaviour
         }
     }
 
+    private void ReplaceFlame(GameObject flamePrefab)
+    {
+        Instantiate(torch.flamePrefab, flame.transform);
+        Destroy(flame);
+        flame = torch.flamePrefab;
+        flame.gameObject.transform.SetParent(gameObject.transform);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (torchHits <= 0 || !useable)
+        if (hitsLeft <= 0 || !useable)
         {
             return;
         }
@@ -82,22 +137,19 @@ public class Torch : MonoBehaviour
                 HitProjectile(collision.gameObject);
                 break;
             default:
+                foreach (ActiveUpgrade upgrade in torch.OnHit)
+                {
+                    if (upgrade.CheckCondition(data: false))
+                    {
+                        upgrade.ActivateEffect();
+                    }
+                }
                 break;
         }
     }
 
-    public void SetMaxHits(int max)
-    {
-        maxHits = max;
-    }
-
-    public void SetTorchDamage(float dmg)
-    {
-        torchDamage = dmg;
-    }
-
     public bool IsLit()
     {
-        return torchHits > 0;
+        return hitsLeft > 0;
     }
 }

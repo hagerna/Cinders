@@ -22,7 +22,7 @@ public class Firebolt : MonoBehaviour
     public void SetTarget(GameObject Target, float pullSpeed)
     {
         startPosition = transform.position;
-        this.target = Target;
+        target = Target;
         speed = pullSpeed;
         StartCoroutine(Pull());
     }
@@ -33,6 +33,7 @@ public class Firebolt : MonoBehaviour
         while (!thrown && time <= duration)
         {
             transform.position = Vector3.Lerp(startPosition, target.transform.position, pullCurve.Evaluate(time/duration));
+            transform.LookAt(target.transform);
             time += Time.deltaTime * speed;
             yield return new WaitForEndOfFrame();
         }
@@ -46,6 +47,7 @@ public class Firebolt : MonoBehaviour
     virtual public void Throw(Vector3 throwVelocity, float hitDamage)
     {
         thrown = true;
+        transform.rotation = Quaternion.Euler(throwVelocity.normalized);
         transform.SetParent(null);
         rb.isKinematic = false;
         rb.useGravity = true;

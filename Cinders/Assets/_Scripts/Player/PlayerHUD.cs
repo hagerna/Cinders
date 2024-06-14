@@ -6,11 +6,13 @@ using TMPro;
 public class PlayerHUD : MonoBehaviour
 {
     [SerializeField] TextMeshPro messageDisplay, tooltipDisplay;
-    private Queue<string> messageQueue = new Queue<string>();
+
+    private List<string> messageQueue = new List<string>();
+    private bool isQueueRunning = false;
     public float displayTime = 9f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         StartCoroutine(DisplayQueuedMessages());
         messageDisplay.text = "";
@@ -19,7 +21,7 @@ public class PlayerHUD : MonoBehaviour
 
     public void QueueMessage(string message)
     {
-        messageQueue.Enqueue(message);
+        messageQueue.Add(message);
     }
 
     /// <summary>
@@ -28,7 +30,10 @@ public class PlayerHUD : MonoBehaviour
     /// <param name="message">The message to be displayed immediately on the HUD</param>
     public void ShowMessage(string message)
     {
-        StopAllCoroutines();
+        if (isQueueRunning)
+        {
+            StopAllCoroutines();
+        }
         messageDisplay.text = "";
         messageQueue.Clear();
         QueueMessage(message);
@@ -38,18 +43,19 @@ public class PlayerHUD : MonoBehaviour
 
     IEnumerator DisplayQueuedMessages()
     {
-        if (messageQueue.Count > 0)
+        int index = 0;
+        while (messageQueue.Count > 0)
         {
-            messageDisplay.text = messageQueue.Dequeue();
-            yield return new WaitForSeconds(displayTime);
+            messageDisplay.text = messageQueue[index];
+            yield return new WaitForSecondsRealtime(displayTime);
             StartCoroutine(DisplayQueuedMessages());
+            index++;
+            if (index == messageQueue.Count)
+            {
+                messageQueue.Clear();
+            }
         }
-        else
-        {
-            messageDisplay.text = "";
-            yield return new WaitForSeconds(0.5f);
-            StartCoroutine(DisplayQueuedMessages());
-        }
+        messageDisplay.text = "";
     }
 
     public void ShowTooltip(string message, float startDelay = 0, bool waitToClear = false)

@@ -5,13 +5,19 @@ using UnityEngine;
 public class RunSettings
 {
     public int night;
+    public TorchSO torchBase { get; private set; }
+    public FlameHandSO flameHandBase { get; private set; }
+    public CampfireSO campfireBase{ get; private set; }
     public float fireboltLvl, torchLvl;
     public int torchMaxHits;
     public float fireboltThrowSpeed, fireboltPullSpeed;
     public int campfireMaxHealth;
 
-    public RunSettings()
+    public RunSettings(TorchSO torch, FlameHandSO flameHand, CampfireSO campfire)
     {
+        torchBase = torch;
+        flameHandBase = flameHand;
+        campfireBase = campfire;
         night = 1;
         fireboltLvl = 1;
         torchLvl = 1;

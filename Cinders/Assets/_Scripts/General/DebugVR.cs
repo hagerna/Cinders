@@ -6,15 +6,25 @@ using TMPro;
 public class DebugVR : MonoBehaviour
 {
 
-    TextMeshPro Display;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] TextMeshPro Display;
+
+    public static DebugVR instance;
+
+    private void Awake()
     {
-        Display = GetComponent<TextMeshPro>();
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance);
+        }
     }
 
-    public void Debug(string message)
+    public void DebugMessage(string message)
     {
         Display.text += message + "\n";
+        Debug.Log("DebugVR: " + message);
     }
 }

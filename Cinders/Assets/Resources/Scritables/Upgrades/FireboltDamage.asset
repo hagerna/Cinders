@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae6ef64b828c44eb994b1f706a41e2b, type: 3}
+  m_Name: FireboltDamage
+  m_EditorClassIdentifier: 
+  title: Firebolt Damage
+  description: Increase the damage of your Firebolt by {0}.
+  baseValue: 1
+  type: 2
+  iconImage: {fileID: 21300000, guid: 5515134bbb0515545a347aafbba91666, type: 3}
+  vfx: {fileID: 0}

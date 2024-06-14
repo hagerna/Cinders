@@ -1,65 +1,52 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     RunSettings currentRun;
-    Torch activeTorch;
-    FlameHand activeFlameHand;
-    Campfire activeCampfire;
-    [SerializeField] AnimationCurve torchDamageCurve, fireboltDamageCurve, enemyHealthCurve;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] TorchSO torchDefault;
+    [SerializeField] FlameHandSO flameHandDefault;
+    [SerializeField] CampfireSO campfireDefault;
+    [SerializeField] AnimationCurve enemyHealthCurve;
+
+    public Action<RunSettings> newRun;
+    public static GameManager instance;
+
+    private void Awake()
     {
-        StartNewRun();
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance);
+        }
     }
+
+    private void Update()
+    {
+        OVRInput.Update();
+        if (currentRun == null && (OVRInput.Get(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.A)))
+        {
+            StartNewRun();
+        }
+    }
+
 
     private void StartNewRun()
     {
-        currentRun = new RunSettings();
-        if (!activeTorch)
-        {
-            activeTorch = FindObjectOfType<Torch>();
-        }
-        if (!activeFlameHand)
-        {
-            activeFlameHand = FindObjectOfType<FlameHand>();
-        }
-        if (!activeCampfire)
-        {
-            activeCampfire = FindObjectOfType<Campfire>();
-        }
-        InitializeTorch();
-        InitializeFlameHand();
-        InitializeCampfire();
+        currentRun = new RunSettings(torchDefault, flameHandDefault, campfireDefault);
+        newRun.Invoke(currentRun);
+        Debug.Log("New Run Started");
     }
 
-    private void InitializeTorch()
+    public RunSettings GetCurrentRun()
     {
-        if (activeTorch != null)
-        {
-            activeTorch.SetMaxHits(currentRun.torchMaxHits);
-            activeTorch.SetTorchDamage(torchDamageCurve.Evaluate(currentRun.torchLvl));
-        }
-    }
-
-    private void InitializeFlameHand()
-    {
-        if (activeFlameHand)
-        {
-            activeFlameHand.SetThrowSpeed(currentRun.fireboltThrowSpeed);
-            activeFlameHand.SetPullSpeed(currentRun.fireboltPullSpeed);
-            activeFlameHand.SetFireboltDamage(fireboltDamageCurve.Evaluate(currentRun.fireboltLvl));
-        }
-    }
-
-    private void InitializeCampfire()
-    {
-        if (activeCampfire)
-        {
-            activeCampfire.SetMaxHealth(currentRun.campfireMaxHealth);
-        }
+        return currentRun;
     }
 
     public float GetEnemyHealth(string EnemyType, bool isElite)
@@ -75,10 +62,5 @@ public class GameManager : MonoBehaviour
 
         }
         return value;
-    }
-
-    public RunSettings GetCurrentRun()
-    {
-        return currentRun;
     }
 }

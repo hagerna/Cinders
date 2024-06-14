@@ -5,40 +5,54 @@ using TMPro;
 
 public class UpgradeObject : MonoBehaviour
 {
+    private Upgrade upgrade;
     [SerializeField] TextMeshPro title, description;
     [SerializeField] SpriteRenderer rarityImage, iconImage;
     [SerializeField] Sprite[] rarities;
-    bool selecting;
+    [SerializeField] Transform selectingIndicator;
+    [SerializeField] GameObject indicatorFlame;
+    [SerializeField] Material unselected, selected;
 
+    public bool selecting;
 
-    public void setUpgrade(string title, string rarity)
+    private void Start()
     {
-        SetRarity(rarity);
+        selectingIndicator.gameObject.GetComponent<MeshRenderer>().material = unselected;
+        selectingIndicator.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetUpgrade(Upgrade upgradeClass)
     {
-        
+        upgrade = upgradeClass;
+        SetRarity(upgrade.rarity);
+        title.text = upgrade.baseUpgrade.title;
+        description.text = upgrade.GetModifiedDescription();
+        selectingIndicator.gameObject.GetComponent<MeshRenderer>().material = unselected;
+        selectingIndicator.gameObject.SetActive(false);
     }
 
-    void SetRarity(string rarity)
+    private void Update()
+    {
+        indicatorFlame.SetActive(selecting);
+    }
+
+    void SetRarity(Rarity rarity)
     {
         switch (rarity)
         {
-            case "common":
+            case Rarity.Common:
                 rarityImage.sprite = rarities[0];
                 break;
-            case "uncommon":
+            case Rarity.Uncommon:
                 rarityImage.sprite = rarities[1];
                 break;
-            case "rare":
+            case Rarity.Rare:
                 rarityImage.sprite = rarities[2];
                 break;
-            case "epic":
+            case Rarity.Epic:
                 rarityImage.sprite = rarities[3];
                 break;
-            case "legendary":
+            case Rarity.Legendary:
                 rarityImage.sprite = rarities[4];
                 break;
             default:
@@ -47,36 +61,50 @@ public class UpgradeObject : MonoBehaviour
         }
     }
 
-    private void UpgradeSelected()
+    public void UpgradeSelected()
     {
-
+        DebugVR.instance.DebugMessage("Upgrade Selected");
+        selectingIndicator.gameObject.GetComponent<MeshRenderer>().material = selected;
+        upgrade.Select();
     }
 
     IEnumerator IndicateSelection()
     {
         selecting = true;
         float selectionTime = 0f;
-        while (selecting && selectionTime < 1f)
+        selectingIndicator.gameObject.SetActive(true);
+        selectingIndicator.localScale = new Vector3(1.1f, 0f, 0.9f);
+        while (selecting && selectionTime < 1.5f)
         {
-            yield return new WaitForSeconds(0.1f);
-            selectionTime += 0.1f;
+            yield return new WaitForSeconds(0.05f);
+            selectionTime += 0.05f;
+            selectingIndicator.localScale = new Vector3(1.1f, 1.05f * (selectionTime / 1.5f), 0.9f);
         }
         if (selecting)
         {
+            selectingIndicator.localScale = new Vector3(1.1f, 1.05f, 0.9f);
             UpgradeSelected();
-        } else
-        {
-
+            FindObjectOfType<UpgradeSelector>().ClearUpgradeOptions();
+            yield return new WaitForSeconds(3f);
+            gameObject.SetActive(false);
         }
-
+        else
+        {
+            selectingIndicator.localScale = new Vector3(1.1f, 0, 0.9f);
+            selectingIndicator.gameObject.SetActive(false);
+        }
+        selecting = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        StartCoroutine(IndicateSelection());
+        if (collision.gameObject.CompareTag("Torch") || collision.gameObject.CompareTag("Player"))
+        {
+            StartCoroutine(IndicateSelection());
+        }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision collision)
     {
         selecting = false;
     }

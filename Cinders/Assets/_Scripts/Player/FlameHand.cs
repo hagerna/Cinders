@@ -6,10 +6,38 @@ public class FlameHand : MonoBehaviour
 {
     OVRInput.Controller hand = OVRInput.Controller.LHand;
     GameObject heldFire;
-    [SerializeField] GameObject fireBolt;
-    float throwSpeed, fireboltDamage, pullSpeed;
     Vector3 lastPosition;
     public bool useable;
+    FlameHandSO flameHand;
+    List<Upgrade> flameHandUpgrades;
+
+    private void Start()
+    {
+        GameManager.instance.newRun += (RunSettings obj) => LoadFlameHand(obj.flameHandBase);
+    }
+
+    private void LoadFlameHand(FlameHandSO scriptableObj)
+    {
+        flameHand = Instantiate(scriptableObj);
+        if (scriptableObj.rightHanded)
+        {
+            hand = OVRInput.Controller.LHand;
+        }
+        else
+        {
+            hand = OVRInput.Controller.RHand;
+        }
+    }
+
+    public void AddUpgrade(Upgrade upgrade)
+    {
+        if (upgrade is InstantUpgrade)
+        {
+            InstantUpgrade instant = upgrade as InstantUpgrade;
+            instant.ApplyUpgrade(flameHand);
+        }
+        flameHandUpgrades.Add(upgrade);
+    }
 
     // Update is called once per frame
     void Update()
@@ -20,8 +48,8 @@ public class FlameHand : MonoBehaviour
         OVRInput.Update();
         if (!heldFire && OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
         {
-            heldFire = Instantiate(fireBolt, Vector3.up * 0.5f, Quaternion.identity);
-            heldFire.GetComponent<Firebolt>().SetTarget(gameObject, pullSpeed);
+            heldFire = Instantiate(flameHand.fireboltPrefab, Vector3.up * 0.5f, Quaternion.identity);
+            heldFire.GetComponent<Firebolt>().SetTarget(gameObject, flameHand.pullSpeed);
         }
         if (heldFire)
         {
@@ -41,26 +69,10 @@ public class FlameHand : MonoBehaviour
         if (heldFire)
         {
             Vector3 direction = transform.position - lastPosition;
-            float motionMagnitude = OVRInput.GetLocalControllerVelocity(hand).magnitude;
-            Vector3 velocity = throwSpeed * motionMagnitude * direction.normalized;
-            heldFire.GetComponent<Firebolt>().Throw(velocity, fireboltDamage);
+            float motionMagnitude = direction.magnitude * 100;
+            Vector3 velocity = flameHand.throwSpeed * motionMagnitude * direction.normalized;
+            heldFire.GetComponent<Firebolt>().Throw(velocity, flameHand.damage);
         }
         heldFire = null;
-    }
-
-
-    public void SetThrowSpeed(float speed)
-    {
-        throwSpeed = speed;
-    }
-
-    public void SetPullSpeed(float speed)
-    {
-        pullSpeed = speed;
-    }
-
-    public void SetFireboltDamage(float dmg)
-    {
-        fireboltDamage = dmg;
     }
 }

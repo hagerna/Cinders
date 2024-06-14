@@ -43,3 +43,8 @@ Basic Upgrades
 - Improvements for major upgrades
 - Improvements for effects
 
+
+Synergies:
+- Slow (icefire)
+- Burn (ghostflame)
+- Pure / Crit (whiteblaze)
