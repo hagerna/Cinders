@@ -35,6 +35,8 @@ public class Tutorial : MonoBehaviour
 
     void StartTutorialSequence()
     {
+        leftSpawner.SpawnEnemies("Ghost");
+        rightSpawner.SpawnEnemies("Ghost");
         hud.ShowMessage("You awake as the sun sets to the smell of smoke and ash. \nA good thing...");
         hud.QueueMessage("As darkness begins to fall, \nlight your Torch when you are ready to face the night...");
         StartCoroutine(TutorialSequence());
@@ -47,22 +49,22 @@ public class Tutorial : MonoBehaviour
         while (!torch.IsLit()) yield return new WaitForSeconds(0.2f);
 
         hud.ShowMessage("The words of your oath ring in your mind: \n\"Protect the Flame at all costs...\"");
-        hud.QueueMessage("The Lost are drawn to its magic, don't let them reach it!");
-        yield return new WaitForSeconds(12f);
+        hud.QueueMessage("The Lost are drawn to its magic, use your Torch to defend it!");
+        yield return new WaitForSeconds(10f);
         leftSpawner.SpawnEnemies("Ghost");
         hud.QueueMessage("More are coming!");
         yield return new WaitForSeconds(6f);
         rightSpawner.SpawnEnemies("Ghost");
         leftSpawner.SpawnEnemies("Ghost");
-        while (FindAnyObjectByType<Enemy>()) yield return null;
+        while (FindAnyObjectByType<Enemy>()) yield return new WaitForSeconds(0.2f);
 
-        hud.ShowMessage("The Torch can only survive so many hits before it must be relit! \nPrepare as more come...");
+        hud.ShowMessage("Your Torch can only survive so many hits before it must be relit! \nPrepare The Lost return...");
         yield return new WaitForSeconds(9f);
         rightSpawner.SpawnEnemies("Ghost", 2, 3f);
         yield return new WaitForSeconds(1f);
         leftSpawner.SpawnEnemies("Ghost", 2, 6f);
         yield return new WaitForSeconds(4f);
-        while (FindAnyObjectByType<Enemy>()) yield return null;
+        while (FindAnyObjectByType<Enemy>()) yield return new WaitForSeconds(0.2f);
 
         hud.ShowMessage("The Lost will attempt to smother the Flame. If too many reach it, the Flame will go out...");
         hud.QueueMessage("But your Torch is not your only tool to fend them off...");
@@ -70,7 +72,7 @@ public class Tutorial : MonoBehaviour
         yield return new WaitForSeconds(hud.displayTime * 2);
         hud.ShowTooltip("( Hold Trigger to create a Firebolt and Release to throw )", 1f, true);
         flameHand.useable = true;
-        while (FindAnyObjectByType<Firebolt>() == null) yield return null;
+        while (FindAnyObjectByType<Firebolt>() == null) yield return new WaitForSeconds(0.2f);
 
         yield return new WaitForSeconds(2f);
         hud.ClearTooltip();
@@ -79,7 +81,7 @@ public class Tutorial : MonoBehaviour
         leftSpawner.SpawnEnemies("Ghost", 4, 10f);
         yield return new WaitForSeconds(2f);
         rightSpawner.SpawnEnemies("Ghost", 4, 10f);
-        while (FindAnyObjectByType<Enemy>()) yield return null;
+        while (FindAnyObjectByType<Enemy>()) yield return new WaitForSeconds(0.2f);
 
         hud.ShowMessage("The sun rises on a new day, and with it the Flame grows stronger...");
         hud.QueueMessage("After each night you will have the opportunity to select an upgrade!");
@@ -88,8 +90,8 @@ public class Tutorial : MonoBehaviour
             types: new System.Type[3] { typeof(TorchDamageUpgrade), typeof(TorchHitsUpgrade), typeof(FireboltThrowSpeedUpgrade) },
             rarities: new Rarity[3] { Rarity.Common, Rarity.Uncommon, Rarity.Common }
             );
-        hud.ShowTooltip("( Select an upgrade by holding your torch to its brazier )");
-        while (upgradeSelector.IsDisplayed()) yield return null;
+        hud.ShowTooltip("( Select an upgrade by holding your torch to its Brazier )");
+        while (upgradeSelector.IsDisplayed()) yield return new WaitForSeconds(0.2f);
 
 
     }

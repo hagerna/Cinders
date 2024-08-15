@@ -49,6 +49,7 @@ public class Torch : MonoBehaviour
         {
             flame.SetActive(true);
             hitsLeft = torch.maxHits;
+            DebugVR.instance.DebugMessage("Hits Left: " + hitsLeft);
             foreach (ActiveUpgrade upgrade in torch.OnLight)
             {
                 if (upgrade.CheckCondition(data: null))

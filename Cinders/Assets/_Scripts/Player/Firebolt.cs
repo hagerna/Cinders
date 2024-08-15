@@ -40,6 +40,8 @@ public class Firebolt : MonoBehaviour
         if (!thrown)
         {
             transform.SetParent(target.transform);
+            transform.LookAt(Vector3.down);
+            rb.freezeRotation = true;
             rb.isKinematic = true;
         }
     }

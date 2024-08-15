@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
     protected float health;
     protected bool canMove;
     protected Rigidbody rb;
-    [SerializeField] protected float moveSpeed = 2f;
+    [SerializeField] EnemySO enemyBase;
+    protected float moveSpeed = 2f;
     [SerializeField] protected string type = "Basic";
     [SerializeField] protected bool isElite;
     [SerializeField] protected GameObject deathEffect;
 
     protected void Start()
     {
+        health = enemyBase.baseHealth;
+        moveSpeed = enemyBase.baseSpeed;
         GameManager manager = FindObjectOfType<GameManager>();
         if (manager)
         {

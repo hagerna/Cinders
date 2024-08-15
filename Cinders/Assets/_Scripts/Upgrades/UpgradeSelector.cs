@@ -121,6 +121,6 @@ public class UpgradeSelector : MonoBehaviour
 
     public bool IsDisplayed()
     {
-        return options[0].isActiveAndEnabled;
+        return options[0].isActiveAndEnabled || options[1].isActiveAndEnabled || options[2].isActiveAndEnabled;
     }
 }

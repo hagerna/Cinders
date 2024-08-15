@@ -40,6 +40,7 @@ public class Campfire : MonoBehaviour
 
     public void FireReached()
     {
+        Debug.Log("Fire Reached");
         if (immune)
         {
             return;
